@@ -1,0 +1,29 @@
+
+import csv
+import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
+#CORRELATION PART
+def calculate_correlation(df, class1, class2, feature1, feature2):
+    class1_data = df[df['Class'].isin([class1, class2])]
+    correlation = class1_data[feature1].corr(class1_data[feature2])
+    return correlation
+#READ THE CSV FILE UPLOADED
+fn = pd.read_csv("convert.csv")
+#MIN VALUES
+print("Minimum values:\n", fn.min())
+#MAX VALUES
+print("\n\nMaximum values:\n", fn.max())
+#MEAN VALUES
+print("\n\nMean: \n", fn.mean())
+#STANDARD DEVIATION  VALUES
+print("\n\nSD \n", fn.std())
+#CORRELATION VALUES
+correlation_setosa_versicolor = calculate_correlation(fn, 'Iris-setosa', 'Iris-versicolor', 'Sepal Length', 'Petal Length')
+correlation_versicolor_virginica = calculate_correlation(fn, 'Iris-versicolor', 'Iris-virginica', 'Sepal Length', 'Petal Length')
+correlation_virginica_setosa = calculate_correlation(fn, 'Iris-virginica', 'Iris-setosa', 'Sepal Length', 'Petal Length')
+
+print("\n\nCorrelation -")
+print(f"Correlation between Iris Setosa and Iris Versicolor: {correlation_setosa_versicolor}")
+print(f"Correlation between Iris Versicolor and Iris Virginica: {correlation_versicolor_virginica}")
+print(f"Correlation between Iris Virginica and Iris Setosa: {correlation_virginica_setosa}")
